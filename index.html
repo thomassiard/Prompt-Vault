@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PromptVault 2026</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:900px;margin:20px auto;padding:20px}
+textarea,input{width:100%;padding:10px;margin:6px 0}
+button{padding:10px 15px;cursor:pointer}
+.card{border:1px solid #ddd;padding:10px;margin:10px 0;border-radius:8px}
+</style>
+</head>
+<body>
+<h1>PromptVault 2026</h1>
+<p>Save your best AI prompts locally in your browser.</p>
+
+<input id="title" placeholder="Prompt title">
+<textarea id="prompt" rows="5" placeholder="Paste prompt here"></textarea>
+<button onclick="savePrompt()">Save Prompt</button>
+
+<h2>My Prompt Library</h2>
+<div id="list"></div>
+
+<script>
+let prompts = JSON.parse(localStorage.getItem("pv2026") || "[]");
+
+function render(){
+ const list=document.getElementById("list");
+ list.innerHTML="";
+ prompts.forEach((p,i)=>{
+   list.innerHTML += `
+   <div class="card">
+      <h3>${p.title}</h3>
+      <pre>${p.prompt}</pre>
+      <button onclick="copyPrompt(${i})">Copy</button>
+      <button onclick="deletePrompt(${i})">Delete</button>
+   </div>`;
+ });
+}
+function savePrompt(){
+ const title=document.getElementById("title").value.trim();
+ const prompt=document.getElementById("prompt").value.trim();
+ if(!title || !prompt) return alert("Fill both fields");
+ prompts.unshift({title,prompt});
+ localStorage.setItem("pv2026",JSON.stringify(prompts));
+ render();
+}
+function copyPrompt(i){
+ navigator.clipboard.writeText(prompts[i].prompt);
+ alert("Copied!");
+}
+function deletePrompt(i){
+ prompts.splice(i,1);
+ localStorage.setItem("pv2026",JSON.stringify(prompts));
+ render();
+}
+render();
+</script>
+</body>
+</html>
