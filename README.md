@@ -1,11 +1,9 @@
-# PromptVault 2026
-
-A 10-minute GitHub project.
+# PromptVault
 
 ## What it does
 Stores your best AI prompts locally in the browser.
 
-## Why useful in 2026?
+## Why is it useful?
 People use ChatGPT, Claude, Gemini, Copilot and other AI tools daily.
 This gives a personal prompt library with zero backend and zero cost.
 
